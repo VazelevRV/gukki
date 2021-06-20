@@ -1,0 +1,64 @@
+﻿<!--Моделлю сторінки є продукт (метод контролеру передає об'єкт з інформації на представлення)
+    а представлення може брати інформацію з цього об'єкту-->
+
+@model Gukki.Models.Schedule
+<!--Представлення являє собою форму для створення/редагування розкладу-->
+<!--В залежності від встановленого значення Title контролером - заголовок сторінки набває значень
+    "Редагування" або "Створення"-->
+<!--Title - це змінна сесії asp.net -->
+
+<h1 class="text-center text-light">@ViewData["Title"]</h1>
+<hr />
+<div class="row justify-content-center text-center bg-light p-3">
+    <div class="col-md-6">
+        <form asp-action="AddOrEdit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!--Прихованні комірки для Id, щоб не перезаписати існуючі дані пустими полями
+            при редагування розкладу-->
+            <!--Якщо це не зробити, то при редагуванні Id та просто зникне-->
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-row">
+
+                <div class="form-group col-md-6">
+                    <label asp-for="WeekdayName" class="control-label font-weight-bold"></label>
+                    <input asp-for="WeekdayName" class="form-control" />
+                    <span asp-validation-for="WeekdayName" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="OrderIndex" class="control-label font-weight-bold"></label>
+                    <input asp-for="OrderIndex" class="form-control" />
+                    <span asp-validation-for="OrderIndex" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="OpenTime" class="control-label font-weight-bold"></label>
+                    <input asp-for="OpenTime" class="form-control" />
+                    <span asp-validation-for="OpenTime" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="CloseTime" class="control-label font-weight-bold"></label>
+                    <input asp-for="CloseTime" class="form-control" />
+                    <span asp-validation-for="CloseTime" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!--Кнопки Готово та додому-->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input type="submit" value="Готово!" class="btn btn-primary btn-outline-success btn-block" onclick="return confirm('Впевнені що хочете продовжити?')" />
+                </div>
+                <div class="form-group col-md-6">
+                    <a asp-action="Index" class="btn btn-secondary btn-dark btn-block">Додому</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--Скріпти валідації (є частиною проекту ASP .NET CORE MVC)-->
+<!--Знаходяться у wwwroot\\lib\\-->
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

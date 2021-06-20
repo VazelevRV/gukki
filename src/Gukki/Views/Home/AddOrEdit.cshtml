@@ -1,0 +1,116 @@
+﻿<!--Моделлю сторінки є продукт (метод контролеру передає об'єкт з інформації на представлення)
+    а представлення може брати інформацію з цього об'єкту-->
+
+@model Gukki.Models.ProductModel
+<!--Представлення являє собою форму для створення/редагування продукту-->
+<!--В залежності від встановленого значення Title контролером - заголовок сторінки набває значень
+    "Редагування" або "Створення"-->
+<!--Title - це змінна сесії asp.net -->
+
+<h1 class="text-center text-light">@ViewData["Title"]</h1>
+<hr />
+<div class="row justify-content-center text-center bg-light p-3">
+    <div class="col-md-6">
+        <form asp-action="AddOrEdit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!--Прихованні комірки для ID та ImageName, щоб не перезаписати існуючі дані пустими полями
+            при редагування продукту-->
+            <!--Якщо це не зробити, то при редагування товару ID та зображення просто зникнуть-->
+            <input type="hidden" asp-for="ID" />
+            <input type="hidden" asp-for="ImageName" />
+
+            <div class="form-row">
+
+
+                <!--Текстові поля для назви та ціни-->
+                <div class="form-group col-md-6">
+                    <label asp-for="Name" class="control-label font-weight-bold"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="Price" class="control-label font-weight-bold"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+            </div>
+
+            <!--Кнопка для відправки зображення-->
+            <div class="file-upload form-group">
+                <input class="file-upload__input" type="file" name="image" id="image">
+                <button class="btn btn-outline-success" id="file-upload__button" type="button">Завантажте зображення</button>
+                <label class="file-upload__label"></label>
+            </div>
+
+
+            <!--Поля для характеристик (Зауваж, має інший type input ніж поля ціна та назва)-->
+            <div class="form-group">
+                <label asp-for="About" class="control-label font-weight-bold"></label>
+                <textarea asp-for="About" class="form-control"></textarea>
+                <span asp-validation-for="About" class="text-danger"></span>
+            </div>
+
+            <!--Кнопки Готово та додому-->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input type="submit" value="Готово!" class="btn btn-primary btn-outline-success btn-block" onclick="return confirm('Впевнені що хочете продовжити?')" />
+                </div>
+                <div class="form-group col-md-6">
+                    <a asp-action="Index" class="btn btn-secondary btn-dark btn-block">Додому</a>
+                </div>
+            </div>
+
+            <div class="container-fluid align-self-center">
+                <div class="inner">
+                    <span>i</span>
+                    <h1>Корисна інформація</h1>
+                    <p>Якщо при редагуванні ви не хочете змінювати зображення - просто залиште це поле пустим.</p>
+                    <p>Якщо ви не завантажете ніякого зображення - товару буде призначене зображення за завмовчанням</p>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    // Змінює назву label при зміні обраного файлу
+    Array.prototype.forEach.call(
+        document.querySelectorAll("#file-upload__button"),
+        function (button) {
+            const hiddenInput = button.parentElement.querySelector(
+                ".file-upload__input"
+            );
+            const label = button.parentElement.querySelector(".file-upload__label");
+            const defaultLabelText = "Файл не обрано";
+
+            // Текст label за завмовчанням
+            label.textContent = defaultLabelText;
+            label.title = defaultLabelText;
+
+            button.addEventListener("click", function () {
+                hiddenInput.click();
+            });
+
+            hiddenInput.addEventListener("change", function () {
+                const filenameList = Array.prototype.map.call(hiddenInput.files, function (
+                    file
+                ) {
+                    return file.name;
+                });
+
+                label.textContent = filenameList.join(", ") || defaultLabelText;
+                label.title = label.textContent;
+            });
+        }
+    );
+</script>
+<!--Скріпти валідації (є частиною проекту ASP .NET CORE MVC)-->
+<!--Знаходяться у wwwroot\\lib\\-->
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

@@ -1,0 +1,72 @@
+﻿<!--Моделлю сторінки є список продуктів (метод контролеру передає об'єкти з інформації на представлення)
+    а представлення може брати інформацію з цього об'єкту-->
+
+@model IEnumerable<Gukki.Models.ProductModel>
+
+@{
+    ViewData["Title"] = "Головна";
+}
+
+<div class="text-center">
+    <h1 class="display-4 text-light">Gukki - <i>Food Can Be Stylish</i></h1>
+</div>
+
+<!--Модальне віконце (за замвовчанням сховане, але при натисканні конпи видалити відкрівається)-->
+<div class="modal" id="confirm-delete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Ви впевнені що хочете видалити це?
+            </div>
+            <div class="modal-body text-center">
+                <img class="image-responsive" src="~/img/junkloader.gif" alt="Анімация викидання сміття" style="max-height:200px; max-width:200px;" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-defaul" data-dismiss="modal">Передумав</button>
+                <a class="btn btn-danger btn-ok" id="Deleter" asp-controller="Home" asp-action="Delete">Видалити</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Через цикл виводимо список всіх продуктів, отриманних з методу контролеру-->
+<div class="list-group-horizontal">
+    @foreach (var item in Model)
+    {
+        <!--Так звана "картка" для відображення продукту-->
+        <!--Див. документацію по Bootstrap CSS для розуміння класів та стилей-->
+        <div class="card">
+            <div class="card-body text-center">
+
+                <h1 class="card-header">@Html.DisplayFor(modelItem => item.Name) @Html.DisplayFor(modelItem => item.Price)₴</h1>
+                <img class="card-img p-2" src="~/img/content/@item.ImageName" style="max-width: 250px; max-height:250px;" />
+                <h3>Опис:</h3>
+                <h5 class="card-text" style="white-space:pre-wrap;">@Html.DisplayFor(modelItem => item.About)</h5>
+                <div class="card-footer justify-content-md-center">
+                    <a class="btn btn-info btn-primary btn-light" asp-action="AddOrEdit" asp-route-id="@item.ID"><h2>Змінити</h2></a>
+                    <!--Обробник цієї кнопки викликає JS функцію PassId (див. wwwroot\\js) та передає кнопці
+                        модального віконця ID продукту для видалення-->
+                    <button class="btn btn-info btn-primary btn-outline-danger"
+                            data-toggle="modal" data-target="#confirm-delete" onclick="PassId(@item.ID)">
+                        <h2>Видалити</h2>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    }
+</div>
+
+
+<script type="text/javascript">
+
+    // Початкова URL для подальшого модифікування
+    // Передаєм byValue до методу PassId
+    const CancelDeleteURL = document.getElementById('Deleter').href;
+    // Передає ID для видалення продукту на modal представлення
+    function PassId(DeleterId, CancelURL = CancelDeleteURL) {
+        let deleteUrl = CancelURL += '/' + DeleterId;
+        document.getElementById('Deleter').href = deleteUrl;
+    }
+</script>

@@ -1,0 +1,194 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+
+.animated-body {
+    background: linear-gradient(270deg, #6e93d6, #e4dbd9);
+    background-size: 400% 400%;
+
+    -webkit-animation: BodyAnimation 30s ease infinite;
+    -moz-animation: BodyAnimation 30s ease infinite;
+    animation: BodyAnimation 30s ease infinite;
+}
+
+@-webkit-keyframes BodyAnimation {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes BodyAnimation {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes BodyAnimation {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+}
+
+/* додатковs стилі*/
+#logo {
+    float: left;
+    position: relative;
+    width: 30%;
+    height: auto;
+}
+
+a {
+    color: #81D6E3;
+}
+
+.btn-primary {
+    background-color: #81d6e3;
+    border-color: #81d6e3;
+}
+
+
+
+.file-upload {
+    display: inline-flex;
+    align-items: center;
+    font-size: 15px;
+}
+
+.file-upload__input {
+    display: none;
+}
+
+.file-upload__button {
+    -webkit-appearance: none;
+    background: #009879;
+    border: 2px solid #00745d;
+    border-radius: 4px;
+    outline: none;
+    padding: 0.5em 0.8em;
+    margin-right: 15px;
+    color: #ffffff;
+    font-size: 1em;
+    font-family: "Quicksand", sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.file-upload__label {
+    margin: 5px;
+    max-width: 250px;
+    font-size: 0.95em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: "Quicksand", sans-serif;
+}
+
+
+.inner {
+    background: #81d6e3;
+    padding: 1em;
+    border-radius: 10px;
+    max-width: 520px;
+    clip-path: circle(4% at 92.5% 18%);
+    transition: all .5s ease-in-out;
+    cursor: pointer;
+}
+
+.inner:hover{
+    clip-path: circle(75%);
+    background: #00B6FF;
+}
+
+.inner h1 {
+    color: white;
+    margin: 5px;
+}
+
+.inner p {
+    color: white;
+    font-size: .8rem;
+}
+
+.inner span {
+    float: right;
+    color: white;
+    font-weight: bold;
+    transition: color .5s;
+    position: relative;
+    margin-right: 4%;
+    margin-top: 1%;
+}
+
+.inner span:hover {
+    color: rgba(255,255,255,0)
+}

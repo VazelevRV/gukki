@@ -1,0 +1,6 @@
+src/.vs/
+src/.vscode/
+src/Gukki/bin/
+src/Gukki/obj/
+src/Gukki/*.user
+src/Gukki/*.Production.json
