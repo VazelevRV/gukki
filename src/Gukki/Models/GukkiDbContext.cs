@@ -13,5 +13,6 @@ namespace Gukki.Models
         // Таблиця представляєтся як список продуктів у Entiti Framework підході
         public DbSet<ProductModel> Products { get; set; }
         public DbSet<Schedule> Schedule {get;set;}
+        public DbSet<ContactModel> Contacts {get;set;}
     }
 }

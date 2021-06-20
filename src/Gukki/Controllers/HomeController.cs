@@ -25,7 +25,7 @@ namespace Gukki.Controllers
         // Головна сторінка сайту (повертає список всіх товарів з бази на представлення)
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Products.ToListAsync());
+            return View(await _context.Products.AsNoTracking().ToListAsync());
         }
 
         // Цей метод повертає знайдений об'єкт з бази на представлення для редагування, 
