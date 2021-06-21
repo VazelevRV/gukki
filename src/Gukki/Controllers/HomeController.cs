@@ -50,7 +50,7 @@ namespace Gukki.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddOrEdit([Bind("ID,Name,Price,About,ImageName")] ProductModel product, IFormFile image)
+        public async Task<IActionResult> AddOrEdit([FromForm] ProductModel product, IFormFile image)
         {
             if (ModelState.IsValid)
             {

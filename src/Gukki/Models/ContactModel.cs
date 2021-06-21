@@ -13,5 +13,6 @@ namespace Gukki.Models
 
         [DisplayName("*Текст контакту"), Required, Column("contact_text", TypeName = "text")]
         public string ContactText { get; set; } = null!;
+        public PlaceModel Place {get;set;}
     }
 }

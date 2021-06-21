@@ -12,7 +12,16 @@ namespace Gukki.Models
 
         // Таблиця представляєтся як список продуктів у Entiti Framework підході
         public DbSet<ProductModel> Products { get; set; }
-        public DbSet<Schedule> Schedule {get;set;}
-        public DbSet<ContactModel> Contacts {get;set;}
+        public DbSet<Schedule> Schedule { get; set; }
+        public DbSet<ContactModel> Contacts { get; set; }
+        public DbSet<PlaceModel> Places {get;set;}
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PlaceModel>()
+                .HasMany(p => p.Contacts)
+                .WithOne(c => c.Place)
+                .IsRequired();
+        }
     }
 }

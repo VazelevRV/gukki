@@ -19,7 +19,8 @@
                 Ви впевнені що хочете видалити це?
             </div>
             <div class="modal-body text-center">
-                <img class="image-responsive" src="~/img/junkloader.gif" alt="Анімация викидання сміття" style="max-height:200px; max-width:200px;" />
+                <img class="image-responsive" src="~/img/junkloader.gif" alt="Анімация викидання сміття"
+                    style="max-height:200px; max-width:200px;" />
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-defaul" data-dismiss="modal">Передумав</button>
@@ -46,21 +47,23 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <th>@Html.DisplayFor(modelItem => item.WeekdayName)</th>
-                    <td>@Html.DisplayFor(modelItem => item.OpenTime)</td>
-                    <td>@Html.DisplayFor(modelItem => item.CloseTime)</td>
-                    <td>@Html.DisplayFor(modelItem => item.OrderIndex)</td>
-                    <td>
-                        <a class="btn align-middle btn-info btn-primary btn-light" asp-action="AddOrEdit" asp-route-id="@item.Id"><p>Змінити</p></a>
-                        <!--Обробник цієї кнопки викликає JS функцію PassId (див. wwwroot\\js) та передає кнопці
-                        модального віконця ID продукту для видалення-->
-                        <button class="btn align-middle btn-info btn-primary btn-outline-danger" data-toggle="modal" data-target="#confirm-delete" onclick="PassId(@item.Id)">
-                            <p>Видалити</p>
-                        </button>
-                    </td>
-                </tr>
+                    <tr>
+                        <th>@Html.DisplayFor(modelItem => item.WeekdayName)</th>
+                        <td>@Html.DisplayFor(modelItem => item.OpenTime)</td>
+                        <td>@Html.DisplayFor(modelItem => item.CloseTime)</td>
+                        <td>@Html.DisplayFor(modelItem => item.OrderIndex)</td>
+                        <td>
+                            <a class="btn d-inline p-0 m-0" asp-action="AddOrEdit" asp-route-id="@item.Id">✏️</a>
+                            <!--Обробник цієї кнопки викликає JS функцію PassId (див. wwwroot\\js) та передає кнопці
+                            модального віконця ID продукту для видалення-->
+                        <button class="btn d-inline p-0 m-0" data-toggle="modal" data-target="#confirm-delete"
+                            onclick="PassId(@item.Id)">
+                                🗑
+                            </button>
+                        </td>
+                    </tr>
                 }
+                <tr><td><a class="btn" asp-action="AddOrEdit">➕</a></td></tr>
             </tbody>
         </table>
     </div>

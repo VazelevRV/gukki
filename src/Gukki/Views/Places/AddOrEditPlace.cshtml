@@ -1,0 +1,41 @@
+﻿@model Gukki.Models.PlaceModel
+
+<h1 class="text-center text-light">@ViewData["Title"]</h1>
+<hr />
+<div class="row justify-content-center text-center bg-light p-3">
+    <div class="col-md-6">
+        <form asp-action="AddOrEditPlace" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="Id"/>
+            
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="CityName" class="control-label font-weight-bold"></label>
+                    <input asp-for="CityName" class="form-control" />
+                    <span asp-validation-for="CityName" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="BlockName" class="control-label font-weight-bold"></label>
+                    <input asp-for="BlockName" class="form-control"/>
+                    <span asp-validation-for="BlockName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!--Кнопки Готово та додому-->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input type="submit" value="Готово!" class="btn btn-primary btn-outline-success btn-block"
+                        onclick="return confirm('Впевнені що хочете продовжити?')" />
+                </div>
+                <div class="form-group col-md-6">
+                    <a asp-action="Index" class="btn btn-secondary btn-dark btn-block">Додому</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

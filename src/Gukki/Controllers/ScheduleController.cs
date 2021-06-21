@@ -59,7 +59,7 @@ namespace Gukki.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddOrEdit([Bind("Id,OrderIndex,WeekdayName,OpenTime,CloseTime")] Schedule schedule,
+        public async Task<IActionResult> AddOrEdit([FromForm] Schedule schedule,
             CancellationToken cancellationToken)
         {
             if(ModelState.IsValid)

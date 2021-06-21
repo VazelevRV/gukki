@@ -1,0 +1,58 @@
+@model Gukki.Models.PlaceModel
+
+
+<div class="text-center">
+    <h1 class="display-4 text-light">Контакти - @ViewData["Title"]</h1>
+</div>
+
+<div class="modal" id="confirm-delete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Ви впевнені що хочете видалити це?
+            </div>
+            <div class="modal-body text-center">
+                <img class="image-responsive" src="~/img/junkloader.gif" alt="Анімация викидання сміття"
+                    style="max-height:200px; max-width:200px;" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-defaul" data-dismiss="modal">Передумав</button>
+                <a class="btn btn-danger btn-ok" id="Deleter" asp-controller="Places"
+                    asp-action="DeleteContact">Видалити</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center bg-light">
+    <img class="image-responsive" src="~/img/phone.png" alt="Зображення телефону"
+        style="max-height:200px; max-width:200px;" />
+    <h3>@Html.DisplayFor(modelItem => Model.CityName), @Html.DisplayFor(modelItem => Model.BlockName)</h3>
+    <ul>
+        @foreach (var contact in Model.Contacts)
+        {
+            <li>@Html.DisplayFor(modelItem => contact.ContactName): @Html.DisplayFor(modelItem => contact.ContactText)</li>
+            <a class="btn align-middle btn-info btn-primary btn-light" asp-action="AddOrEditContact" asp-route-id="@contact.Id">
+                <p>Змінити</p>
+            </a>
+            <button class="btn align-middle btn-info btn-primary btn-outline-danger" data-toggle="modal"
+            data-target="#confirm-delete" onclick="PassId(@contact.Id)">
+                <p>Видалити</p>
+            </button>
+        }
+    </ul>
+
+</div>
+
+
+<script type="text/javascript">
+
+    // Початкова URL для подальшого модифікування
+    // Передаєм byValue до методу PassId
+    const CancelDeleteURL = document.getElementById('Deleter').href;
+    // Передає ID для видалення продукту на modal представлення
+    function PassId(DeleterId, CancelURL = CancelDeleteURL) {
+        let deleteUrl = CancelURL += '/' + DeleterId;
+        document.getElementById('Deleter').href = deleteUrl;
+    }
+</script>

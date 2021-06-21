@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Gukki.Models.PlaceModel>
+
+@{
+    ViewData["Title"] = "Відділення";
+}
+
+<div class="text-center">
+    <h1 class="display-4 text-light">Gukki - Контакти</h1>
+</div>
+
+<div class="modal" id="confirm-delete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Ви впевнені що хочете видалити це?
+            </div>
+            <div class="modal-body text-center">
+                <img class="image-responsive" src="~/img/junkloader.gif" alt="Анімация викидання сміття"
+                    style="max-height:200px; max-width:200px;" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-defaul" data-dismiss="modal">Передумав</button>
+                <a class="btn btn-danger btn-ok" id="Deleter" asp-controller="Places"
+                    asp-action="DeletePlace">Видалити</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center bg-light">
+    @foreach (var item in Model)
+    {
+        <div class="col col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="card p-1 m-2">
+                <div class="card-body">
+
+                    <div>
+                        <button class="btn float-right p-0 m-0 d-inline" data-toggle="modal" data-target="#confirm-delete" onclick="PassId(@item.Id)">🗑</button>
+                        <a class="btn float-right p-0 m-0 d-inline" asp-action="AddOrEditPlace" asp-route-id="@item.Id">✏️</a>              
+                    </div>
+                    
+                    <hr class="d-block">
+
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.CityName), @Html.DisplayFor(modelItem =>
+                    item.BlockName)</h5>
+                    <ul class="card-text">
+                        @if (item.Contacts.Any())
+                        {
+                            
+                            @foreach (var contact in item.Contacts)
+                            {
+                                <li class="card-text">
+                                    @Html.DisplayFor(modelItem => contact.ContactName):
+                                    @Html.DisplayFor(modelItem=>contact.ContactText)
+                                    <a
+                                        class="btn d-inline p-0 m-0"
+                                        asp-action="AddOrEditContact"
+                                        asp-route-placeId="@contact.Place.Id"
+                                        asp-route-contactId="@contact.Id">✏️
+                                    </a>   
+                                    <a 
+                                        class="btn d-inline p-0 m-0"
+                                        id="Deleter" asp-controller="Places"
+                                        asp-action="DeleteContact"
+                                        onclick="return confirm('Впевнені що хочете продовжити?')"
+                                        asp-route-id="@contact.Id">🗑
+                                    </a>
+                                </li>
+    
+                            }
+                        }     
+                        <li>
+                            <a class="btn" asp-action="AddOrEditContact" asp-route-placeId="@item.Id">➕</a>
+                        </li>
+                    </ul>
+                         
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+<script type="text/javascript">
+
+    // Початкова URL для подальшого модифікування
+    // Передаєм byValue до методу PassId
+    const CancelDeleteURL = document.getElementById('Deleter').href;
+    // Передає ID для видалення продукту на modal представлення
+    function PassId(DeleterId, CancelURL = CancelDeleteURL) {
+        let deleteUrl = CancelURL += '/' + DeleterId;
+        document.getElementById('Deleter').href = deleteUrl;
+    }
+</script>
