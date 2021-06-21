@@ -26,27 +26,10 @@ namespace Gukki.Controllers
             return View(schedule);
         }
 
-        public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
-        {
-            var scheduleToDelete = await _context
-                .Schedule
-                .AsNoTracking()
-                .FirstOrDefaultAsync(d => d.Id == id, cancellationToken);
-
-            if (scheduleToDelete == null)
-                return RedirectToAction(nameof(Index));
-
-            _context.Remove(scheduleToDelete);
-
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(nameof(Index));
-        }
-
         [HttpGet]
         public IActionResult AddOrEdit(int? id = 0)
         {
-            // Якщо id дорівнює 0 - то це створення нового продукту
+            // Якщо id дорівнює 0 - то це створення нового дня у розкладі
             if (id == 0)
             {
                 ViewData["Title"] = "Додайте новий день";
@@ -78,6 +61,24 @@ namespace Gukki.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(schedule);
+        }
+
+        // Видалення дня розкладу із бази
+        public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
+        {
+            var scheduleToDelete = await _context
+                .Schedule
+                .AsNoTracking()
+                .FirstOrDefaultAsync(d => d.Id == id, cancellationToken);
+
+            if (scheduleToDelete == null)
+                return RedirectToAction(nameof(Index));
+
+            _context.Remove(scheduleToDelete);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

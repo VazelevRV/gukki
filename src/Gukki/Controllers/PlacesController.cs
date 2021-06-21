@@ -12,33 +12,12 @@ namespace Gukki.Controllers
 
         public PlacesController(GukkiDbContext context)
         {
-            // Через цей об'єкт додаток зв'язується з базою даних
             _context = context;
         }
 
-        // Головна сторінка контролеру (повертає список всіх контактів з бази на представлення)
         public async Task<IActionResult> Index()
         {       
             return View(await _context.Places.Include(p => p.Contacts).AsNoTracking().ToListAsync());
-        }
-
-        // place id
-        public async Task<IActionResult> PlaceContacts(int id)
-        {
-            var place = await _context.Places.FindAsync(id);
-            if(place == null)
-                return View();
-            
-            ViewData["Title"] = $"{place.CityName} {place.BlockName}";
-
-            return View
-                (
-                    await _context.Places
-                    .Include(p => p.Contacts)
-                    .AsNoTracking()
-                    .Where(p => p.Id == id)
-                    .ToListAsync()
-                );
         }
 
         public async Task<IActionResult> AddOrEditPlace(int? id = 0)
@@ -57,7 +36,7 @@ namespace Gukki.Controllers
 
         public async Task<IActionResult> AddOrEditContact(int? contactId = 0, int? placeId = 0)
         {
-            // Якщо id дорівнює 0 - то це створення нового віділення
+            // Якщо id дорівнює 0 - то це створення нового контакту
             if (contactId == 0)
             {
                 var place = await _context.Places.FindAsync(placeId);
@@ -126,6 +105,7 @@ namespace Gukki.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // Метод видалення контакту з бази
         public async Task<IActionResult> DeleteContact(int? id)
         {
             var contact = await _context.Contacts.FindAsync(id);

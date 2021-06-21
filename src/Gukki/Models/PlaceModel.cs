@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Gukki.Models
 {
+    // Модель для представленння відділення
     public class PlaceModel
     {
         public int Id { get; init; }
@@ -14,6 +15,8 @@ namespace Gukki.Models
 
         [DisplayName("*Район"), Required, Column("block_name", TypeName = "text")]
         public string BlockName { get; set; } = null!;
+
+        // Навігаціонне посилання на контакти цього відділення
         public List<ContactModel> Contacts {get;set;}
     }
 }

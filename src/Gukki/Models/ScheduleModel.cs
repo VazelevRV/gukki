@@ -4,9 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Gukki.Models
 {
+    // Модель для представлення розкладу
     public class Schedule
     {
         public int Id { get; init; }
+
+        // використовується для сортування дней тижня
 
         [DisplayName("*Індекс порядку відображення"),Required, Column("order_index", TypeName = "integer")]
         public int OrderIndex{get;set;} = 1;

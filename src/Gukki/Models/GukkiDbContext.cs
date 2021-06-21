@@ -2,7 +2,7 @@
 
 namespace Gukki.Models
 {
-    // Цей клас вказує Entity Framework Що потрібно створити таблицу Products при створенні бази
+    // Цей клас вказує Entity Framework Що потрібно створити таблиці при створенні бази
     public class GukkiDbContext : DbContext
     {
         public GukkiDbContext(DbContextOptions<GukkiDbContext> options)
@@ -18,6 +18,8 @@ namespace Gukki.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // налаштування 1 to many relationship 
+            // безліч контактів у кожного відділення
             modelBuilder.Entity<PlaceModel>()
                 .HasMany(p => p.Contacts)
                 .WithOne(c => c.Place)

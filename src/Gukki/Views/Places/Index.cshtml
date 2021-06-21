@@ -30,12 +30,18 @@
 <div class="row justify-content-center bg-light">
     @foreach (var item in Model)
     {
+        <!-- кожне відділення буде у своїй колонці
+             (по 1 на маленьких екранах, по 3 на великих та середніх) -->
         <div class="col col-xs-12 col-sm-12 col-md-4 col-lg-4">
+
+            <!-- Кожне відділення - картка bootstrap -->
             <div class="card p-1 m-2">
                 <div class="card-body">
-
+                    
+                    <!--  для кнопок використовуються емодзі -->
                     <div>
                         <button class="btn float-right p-0 m-0 d-inline" data-toggle="modal" data-target="#confirm-delete" onclick="PassId(@item.Id)">🗑</button>
+                        <!-- для видалення передаємо у url id відділення -->
                         <a class="btn float-right p-0 m-0 d-inline" asp-action="AddOrEditPlace" asp-route-id="@item.Id">✏️</a>              
                     </div>
                     
@@ -44,6 +50,7 @@
                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.CityName), @Html.DisplayFor(modelItem =>
                     item.BlockName)</h5>
                     <ul class="card-text">
+                        <!-- якщо у віділенні є контакти - представляємо їх як елементи списку -->
                         @if (item.Contacts.Any())
                         {
                             
@@ -52,6 +59,8 @@
                                 <li class="card-text">
                                     @Html.DisplayFor(modelItem => contact.ContactName):
                                     @Html.DisplayFor(modelItem=>contact.ContactText)
+                                    <!-- тут до url для редагування передаємо як id контакту, так і id віділення
+                                         використовується атрибут ``asp-route-<назва параметру>`` -->
                                     <a
                                         class="btn d-inline p-0 m-0"
                                         asp-action="AddOrEditContact"
@@ -68,7 +77,8 @@
                                 </li>
     
                             }
-                        }     
+                        } 
+                        <!-- не важливо чи є контакти у віділенні чи ні - створюємо кнопку додавання нового контакту -->
                         <li>
                             <a class="btn" asp-action="AddOrEditContact" asp-route-placeId="@item.Id">➕</a>
                         </li>

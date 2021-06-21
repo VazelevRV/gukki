@@ -14,7 +14,7 @@
         <form asp-action="AddOrEdit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <!--Прихованні комірки для Id, щоб не перезаписати існуючі дані пустими полями
+            <!--Прихована комірка для Id, щоб не перезаписати існуючі дані пустими полями
             при редагування розкладу-->
             <!--Якщо це не зробити, то при редагуванні Id та просто зникне-->
             <input type="hidden" asp-for="Id" />

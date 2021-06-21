@@ -9,6 +9,10 @@
 
             <input type="hidden" asp-for="Id"/>
 
+            <!-- Передача id відділення як приїованого поля у формі 
+                 За допомогою об'єкту ViewData
+                 Це необхідно щоб потім призначити відділення при створені або
+                 оновленні контакту -->
             <input type="hidden" name="placeId" value="@ViewData["placeId"]"/>
 
             <div class="form-row">
