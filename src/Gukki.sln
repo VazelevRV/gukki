@@ -22,12 +22,4 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7F82FD4E-3C23-4C52-B2D1-3A5E585B9C5E}
 	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 2
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Gukki\\Gukki.csproj
-		SccProjectName1 = Gukki
-		SccLocalPath1 = Gukki
-	EndGlobalSection
 EndGlobal
