@@ -2,14 +2,16 @@
 using Gukki.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Gukki.Migrations
 {
     [DbContext(typeof(GukkiDbContext))]
-    partial class GukkiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210621110834_MaprUrl")]
+    partial class MaprUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,27 +43,6 @@ namespace Gukki.Migrations
                     b.ToTable("Contacts");
                 });
 
-            modelBuilder.Entity("Gukki.Models.MapsContactModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("FullAddress")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("full_address");
-
-                    b.Property<string>("MapsURL")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("maps_url");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MapContacts");
-                });
-
             modelBuilder.Entity("Gukki.Models.PlaceModel", b =>
                 {
                     b.Property<int>("Id")
@@ -78,13 +59,12 @@ namespace Gukki.Migrations
                         .HasColumnType("text")
                         .HasColumnName("city_name");
 
-                    b.Property<int>("MapsContactId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("MapsURL")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("maps_url");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MapsContactId")
-                        .IsUnique();
 
                     b.ToTable("Places");
                 });
@@ -154,22 +134,6 @@ namespace Gukki.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Place");
-                });
-
-            modelBuilder.Entity("Gukki.Models.PlaceModel", b =>
-                {
-                    b.HasOne("Gukki.Models.MapsContactModel", "MapsContact")
-                        .WithOne("Place")
-                        .HasForeignKey("Gukki.Models.PlaceModel", "MapsContactId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MapsContact");
-                });
-
-            modelBuilder.Entity("Gukki.Models.MapsContactModel", b =>
-                {
                     b.Navigation("Place");
                 });
 

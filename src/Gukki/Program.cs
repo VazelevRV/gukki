@@ -26,8 +26,12 @@ namespace Gukki
                 //if(File.Exists("Gukki.db"))
                 //    File.Delete("Gukki.db");
                     
-                 //Ensure database is created
-                 context.Database.EnsureCreated();
+                // Застосувати міграції
+                if(context.Database.GetMigrations().Any())
+                    context.Database.Migrate();
+
+                // Впевнитись, що база створена
+                context.Database.EnsureCreated();
             }
             await host.RunAsync();
         }

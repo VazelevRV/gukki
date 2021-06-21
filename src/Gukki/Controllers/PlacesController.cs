@@ -17,7 +17,7 @@ namespace Gukki.Controllers
 
         public async Task<IActionResult> Index()
         {       
-            return View(await _context.Places.Include(p => p.Contacts).AsNoTracking().ToListAsync());
+            return View(await _context.Places.Include(p => p.Contacts).Include(p => p.MapsContact).AsNoTracking().ToListAsync());
         }
 
         public async Task<IActionResult> AddOrEditPlace(int? id = 0)
@@ -26,11 +26,14 @@ namespace Gukki.Controllers
             if (id == 0)
             {
                 ViewData["Title"] = "Додайте нове відділення";
-                return View(new PlaceModel());
+                return View(new PlaceModel(){MapsContact = new MapsContactModel()});
             }
             // Інакше - редагування попередньо-створенного
             ViewData["Title"] = "Редагування відділення";
-            var place = await _context.Places.Include(p => p.Contacts).FirstOrDefaultAsync(p => p.Id == id);
+            var place = await _context.Places
+                        .Include(p => p.Contacts)
+                        .Include(p => p.MapsContact)
+                        .FirstOrDefaultAsync(p => p.Id == id);
             return View(place);
         }
 
@@ -53,6 +56,8 @@ namespace Gukki.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddOrEditPlace([FromForm] PlaceModel place)
         {
+            place.MapsContact.Place = place;
+
             if (ModelState.IsValid)
             {
 
@@ -96,6 +101,7 @@ namespace Gukki.Controllers
                 return View();
 
             var contacts = _context.Contacts.Where(c => c.Place.Id == id);
+            var mapContact = _context.MapContacts.Where(c => c.Place.Id == id);
 
             if(contacts.Any())
                 _context.RemoveRange(contacts);

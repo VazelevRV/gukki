@@ -14,6 +14,7 @@ namespace Gukki.Models
         public DbSet<ProductModel> Products { get; set; }
         public DbSet<Schedule> Schedule { get; set; }
         public DbSet<ContactModel> Contacts { get; set; }
+        public DbSet<MapsContactModel> MapContacts { get; set; }
         public DbSet<PlaceModel> Places {get;set;}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -23,6 +24,13 @@ namespace Gukki.Models
             modelBuilder.Entity<PlaceModel>()
                 .HasMany(p => p.Contacts)
                 .WithOne(c => c.Place)
+                .IsRequired();
+            
+            // налаштування 1 to 1 relationship 
+            // 1 контакт у кожного відділення
+            modelBuilder.Entity<PlaceModel>()
+                .HasOne(p => p.MapsContact)
+                .WithOne(m => m.Place)
                 .IsRequired();
         }
     }

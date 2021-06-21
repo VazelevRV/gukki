@@ -16,6 +16,10 @@ namespace Gukki.Models
         [DisplayName("*Район"), Required, Column("block_name", TypeName = "text")]
         public string BlockName { get; set; } = null!;
 
+        // Навігаціонне посилання на контакти цього відділення на мапі 
+        public int MapsContactId { get; set; }
+        public MapsContactModel MapsContact{get;set;}
+
         // Навігаціонне посилання на контакти цього відділення
         public List<ContactModel> Contacts {get;set;}
     }

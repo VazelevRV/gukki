@@ -47,8 +47,11 @@
                     
                     <hr class="d-block">
 
-                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.CityName), @Html.DisplayFor(modelItem =>
-                    item.BlockName)</h5>
+                    <h5 class="card-title">
+                        @Html.DisplayFor(modelItem => item.CityName), 
+                        @Html.DisplayFor(modelItem => item.BlockName),
+                    </h5>
+                    <h6>@Html.DisplayFor(modelItem => item.MapsContact.FullAddress)</h6>
                     <ul class="card-text">
                         <!-- якщо у віділенні є контакти - представляємо їх як елементи списку -->
                         @if (item.Contacts.Any())
@@ -83,7 +86,7 @@
                             <a class="btn" asp-action="AddOrEditContact" asp-route-placeId="@item.Id">➕</a>
                         </li>
                     </ul>
-                         
+                    <iframe src="@item.MapsContact.MapsURL" width="290" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
         </div>

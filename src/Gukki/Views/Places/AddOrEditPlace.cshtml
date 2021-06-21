@@ -8,6 +8,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <input type="hidden" asp-for="Id"/>
+            <input type="hidden" asp-for="@Model.MapsContact.Id"/>
             
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -19,6 +20,19 @@
                     <label asp-for="BlockName" class="control-label font-weight-bold"></label>
                     <input asp-for="BlockName" class="form-control"/>
                     <span asp-validation-for="BlockName" class="text-danger"></span>
+                </div>
+            </div>
+
+             <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label asp-for="@Model.MapsContact.MapsURL" class="control-label font-weight-bold"></label>
+                    <input asp-for="@Model.MapsContact.MapsURL" class="form-control" />
+                    <span asp-validation-for="@Model.MapsContact.MapsURL" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-12">
+                    <label asp-for="@Model.MapsContact.FullAddress" class="control-label font-weight-bold"></label>
+                    <input asp-for="@Model.MapsContact.FullAddress" class="form-control" />
+                    <span asp-validation-for="@Model.MapsContact.FullAddress" class="text-danger"></span>
                 </div>
             </div>
 

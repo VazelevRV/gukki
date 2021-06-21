@@ -2,14 +2,16 @@
 using Gukki.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Gukki.Migrations
 {
     [DbContext(typeof(GukkiDbContext))]
-    partial class GukkiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210621112831_MapsContactsModel")]
+    partial class MapsContactsModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,7 +61,7 @@ namespace Gukki.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MapContacts");
+                    b.ToTable("MapsContactModel");
                 });
 
             modelBuilder.Entity("Gukki.Models.PlaceModel", b =>
